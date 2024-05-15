@@ -1,0 +1,45 @@
+{
+  "name": "studiopractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/msal-browser": "^3.11.0",
+    "@azure/msal-node": "^2.6.5",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@sendgrid/mail": "^8.1.1",
+    "axios": "^1.6.8",
+    "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "del": "^6.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "express-useragent": "^1.0.15",
+    "helmet": "^7.1.0",
+    "isomorphic-fetch": "^3.0.0",
+    "mailgen": "^2.0.28",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^2.7.0",
+    "node-telegram-bot-api": "^0.65.1",
+    "nodemailer": "^6.9.13",
+    "passport": "^0.7.0",
+    "passport-azure-ad": "^4.3.5",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "@microsoft/microsoft-graph-types": "^2.40.0",
+    "@types/node-telegram-bot-api": "^0.64.6"
+  }
+}

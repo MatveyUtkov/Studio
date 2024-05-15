@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MEDIA STUDIO CMS</title>
+    <link href="../dist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/css/admin.css">
+</head>
+
+<body>
+<div class="container-fluid text-center container-admin">
+    <div class="row">
+        <div class="container navbar-cont text-center d-none d-sm-none d-md-block" id="header">
+            <header class="d-flex flex-wrap justify-content-center row">
+                <ul class="col-md-10 nav align-items-center">
+                    <li class="col nav-item">
+                        <a class="nav-link" onclick="toggleSection('uploadStuff')" href="#uploadStuff">ЗАГРУЗКА</a>
+                    </li>
+                    <li class="col nav-item">
+                        <a class="nav-link" onclick="toggleSection('editStuff')" href="#editStuff">РЕДАКТИРОВАНИЕ</a>
+                    </li>
+                    <li class="col nav-item">
+                        <a class="nav-link active" onclick="toggleSection('deleteStuff')" href="#deleteStuff">УДАЛЕНИЕ</a>
+                    </li>
+                </ul>
+            </header>
+        </div>
+    </div>
+    <div id="uploadStuff" class="row cms-section">
+        <div class="col-6">
+            <div class="admin-card p-5">
+                <h1>ЗАГРУЗИТЬ ПРОЕКТЫ</h1>
+                <hr />
+                <form action="/upload_Project" method="POST" enctype="multipart/form-data">
+                    <div class="row mb-3">
+                        <div class="col-3 align-content-center text-start">
+                            <label class="form-label" for="name">НАЗВАНИЕ</label>
+                        </div>
+                        <div class="col-9 align-content-center">
+                            <input class="form-control" type="text" id="name" placeholder="TITLE" value="" name="name" required/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3 align-content-center text-start">
+                            <label class="form-label" for="desc">ОПИСАНИЕ</label>
+                        </div>
+                        <div class="col-9 align-content-center">
+                            <textarea class="form-control" id="desc" name="desc" value="" rows="2" placeholder="DESCRIPTION" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3 align-content-center text-start">
+                            <label class="form-label" for="url">ССЫЛКА НА ВИДЕО</label>
+                        </div>
+                        <div class="col-9 align-content-center ">
+                            <textarea class="form-control" id="url" name="url" value="" rows="2" placeholder="URL" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3 align-content-center text-start">
+                            <label class="form-label" for="image">КАРТИНКА</label>
+                        </div>
+                        <div class="col-9 align-content-center">
+                            <input class="form-control" type="file" id="image" name="image" value="" required />
+                        </div>
+                    </div>
+                    <div class="row p-3">
+                        <button class="btn btn-lg btn-light" type="submit">ЗАГРУЗИТЬ</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        <div class="col-6">
+            <div class="admin-card p-5">
+                <h1>ЗАГРУЗИТЬ ЗОНЫ СТУДИИ</h1>
+                <hr />
+                    <form action="/upload_Overview" method="POST" enctype="multipart/form-data">
+                        <div class="row mb-3">
+                            <div class="col-3 align-content-center text-start">
+                                <label class="form-label" for="name">НАЗВАНИЕ</label>
+                            </div>
+                            <div class="col-9 align-content-center">
+                                <input class="form-control" type="text" id="name" placeholder="TITLE" value="" name="name" required/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-3 align-content-center text-start">
+                                <label class="form-label" for="desc">ОПИСАНИЕ</label>
+                            </div>
+                            <div class="col-9 align-content-center">
+                                <textarea class="form-control" id="desc" name="desc" value="" rows="2" placeholder="DESCRIPTION" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3 align-content-center text-start">
+                                <label class="form-label" for="url">ССЫЛКА НА БРЕНДЫ</label>
+                            </div>
+                            <div class="col-9 align-content-center">
+                                <textarea class="form-control" id="url" name="url" value="" rows="2" placeholder="URL" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3 align-content-center text-start">
+                                <label class="form-label" for="image">КАРТИНКА</label>
+                            </div>
+                            <div class="col-9 align-content-center">
+                                <input class="form-control" type="file" id="image" name="image" value="" required />
+                            </div>
+                        </div>
+                        <div class="row p-3">
+                            <button class="btn btn-lg btn-light" type="submit">ЗАГРУЗИТЬ</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <div id="editStuff" class="row cms-section">
+        <div class="col-6">
+            <div class="admin-card p-5">
+                <h1>РЕДАКТИРОВАТЬ ПРОЕКТЫ</h1>
+                <hr />
+                <div id="edit_project_slideshow">
+                    <% items.images.forEach(function(image, index) { %>
+                        <div class="edit_project_slide <%= index === 0 ? 'active' : '' %>">
+                            <form action="/update_project/<%= image._id %>" method="POST" enctype="multipart/form-data">
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="name">НАЗВАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <input class="form-control" type="text" id="name" name="name" value="<%= image.name %>" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="desc">ОПИСАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="desc" name="desc" rows="2" required><%= image.desc %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="url">ССЫЛКА НА ВИДЕО</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="url" name="url" rows="2" required><%= image.url %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="image">КАРТИНКА</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <input class="form-control" type="file" id="image" name="image" />
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <button class="btn btn-lg btn-light" type="submit">ИЗМЕНИТЬ</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    <% }); %>
+                    <div class="edit_project_controls">
+                        <div class="edit_project_dots"></div>
+                        <div class="row p-3">
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="edit_project_prevSlide()">ПРЕДЫДУЩЕЕ</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="edit_project_nextSlide()">СЛЕДУЮЩЕЕ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="admin-card p-5">
+                <h1>Редактировать Зоны</h1>
+                <hr />
+                <div id="edit_overview_slideshow">
+                    <% items.overviews.forEach(function(image, index) { %>
+                        <div class="edit_overview_slide <%= index === 0 ? 'active' : '' %>">
+                            <form action="/update_overview/<%= image._id %>" method="POST" enctype="multipart/form-data">
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="name">НАЗВАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <input class="form-control" type="text" id="name" name="name" value="<%= image.name %>" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="desc">ОПИСАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="desc" name="desc" rows="2" required><%= image.desc %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="url">ССЫЛКА НА БРЕНДЫ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="url" name="url" rows="2" placeholder="URL" required><%= image.url%></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="image">КАРТИНКА</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <input class="form-control" type="file" id="image" name="image" />
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <button class="btn btn-lg btn-light" type="submit">ИЗМЕНИТЬ</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    <% }); %>
+                    <div class="edit_overview_controls">
+                        <div class="edit_overview_dots"></div>
+                        <div class="row p-3">
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="edit_overview_prevSlide()">ПРЕДЫДУЩЕЕ</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="edit_overview_nextSlide()">СЛЕДУЮЩЕЕ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="deleteStuff" class="row cms-section">
+        <div class="col-6">
+            <div class="admin-card p-5">
+                <h1>Удалить проекты</h1>
+                <hr />
+                <div id="delete_project_slideshow">
+                    <% items.images.forEach(function(image, index) { %>
+                        <div class="delete_project_slide <%= index === 0 ? 'active' : '' %>">
+                            <form action="/delete_project/<%= image._id %>" method="get" enctype="multipart/form-data">
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="name">НАЗВАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <input class="form-control" type="text" id="name" name="name" value="<%= image.name %>" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="desc">ОПИСАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="desc" name="desc" rows="2" required><%= image.desc %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="url">ССЫЛКА НА ВИДЕО</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="url" name="url" rows="2" required><%= image.url %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <button class="btn btn-lg btn-light" type="submit">УДАЛИТЬ</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    <% }); %>
+                    <div class="delete_project_controls">
+                        <div class="delete_project_dots"></div>
+                        <div class="row p-3">
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="delete_project_prevSlide()">ПРЕДЫДУЩЕЕ</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="delete_project_nextSlide()">СЛЕДУЮЩЕЕ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="admin-card p-5">
+                <h1>Delete overview</h1>
+                <hr />
+                <div id="delete_overview_slideshow">
+                    <% items.overviews.forEach(function(image, index) { %>
+                        <div class="delete_overview_slide <%= index === 0 ? 'active' : '' %>">
+                            <form action="/delete_overview/<%= image._id %>" method="get" enctype="multipart/form-data">
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="name">НАЗВАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <input class="form-control" type="text" id="name" name="name" value="<%= image.name %>" required/>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="desc">ОПИСАНИЕ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="desc" name="desc" rows="2" required><%= image.desc %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-3 align-content-center text-start">
+                                        <label class="form-label" for="url">ССЫЛКА НА БРЕНДЫ</label>
+                                    </div>
+                                    <div class="col-9 align-content-center">
+                                        <textarea class="form-control" id="url" name="url" rows="2" placeholder="URL" required><%= image.url %></textarea>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <button class="btn btn-lg btn-light" type="submit">УДАЛИТЬ</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    <% }); %>
+                    <div class="delete_overview_controls">
+                        <div class="delete_overview_dots"></div>
+                        <div class="row p-3">
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="delete_overview_prevSlide()">ПРЕДЫДУЩЕЕ</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-lg btn-light" onclick="delete_overview_nextSlide()">СЛЕДУЮЩЕЕ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../dist/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var edit_project_slides = $('#edit_project_slideshow .edit_project_slide');
+        var edit_project_dots = $('#edit_project_slideshow .edit_project_dots');
+        var edit_project_currentIndex = 0;
+
+        function edit_project_showSlide(index) {
+            edit_project_slides.removeClass('active');
+            edit_project_slides.eq(index).addClass('active');
+
+            edit_project_dots.find('.dot').removeClass('active');
+            edit_project_dots.find('.dot').eq(index).addClass('active');
+        }
+
+        function edit_proejct_createDots() {
+            edit_project_slides.each(function(index) {
+                var dot = $('<span class="dot"></span>');
+                dot.click(function() {
+                    edit_project_showSlide(index);
+                    edit_project_currentIndex = index;
+                });
+                edit_project_dots.append(dot);
+            });
+
+            edit_project_dots.find('.dot').eq(0).addClass('active');
+        }
+
+        edit_proejct_createDots();
+
+        window.edit_project_nextSlide = function() {
+            edit_project_currentIndex = (edit_project_currentIndex + 1) % edit_project_slides.length;
+            edit_project_showSlide(edit_project_currentIndex);
+        }
+
+        window.edit_project_prevSlide = function() {
+            edit_project_currentIndex = (edit_project_currentIndex - 1 + edit_project_slides.length) % edit_project_slides.length;
+            edit_project_showSlide(edit_project_currentIndex);
+        }
+
+        var edit_overview_slides = $('#edit_overview_slideshow .edit_overview_slide');
+        var edit_overview_dots = $('#edit_overview_slideshow .edit_overview_dots');
+        var edit_overview_currentIndex = 0;
+
+        function edit_overview_showSlide(index) {
+            edit_overview_slides.removeClass('active');
+            edit_overview_slides.eq(index).addClass('active');
+
+            edit_overview_dots.find('.dot').removeClass('active');
+            edit_overview_dots.find('.dot').eq(index).addClass('active');
+        }
+
+        function edit_overview_createDots() {
+            edit_overview_slides.each(function(index) {
+                var dot = $('<span class="dot"></span>');
+                dot.click(function() {
+                    edit_overview_showSlide(index);
+                    edit_overview_currentIndex = index;
+                });
+                edit_overview_dots.append(dot);
+            });
+
+            edit_overview_dots.find('.dot').eq(0).addClass('active');
+        }
+
+        edit_overview_createDots();
+
+        window.edit_overview_nextSlide = function() {
+            edit_overview_currentIndex = (edit_overview_currentIndex + 1) % edit_overview_slides.length;
+            edit_overview_showSlide(edit_overview_currentIndex);
+        }
+
+        window.edit_overview_prevSlide = function() {
+            edit_overview_currentIndex = (edit_overview_currentIndex - 1 + edit_overview_slides.length) % edit_overview_slides.length;
+            edit_overview_showSlide(edit_overview_currentIndex);
+        }
+
+        var delete_overview_slides = $('#delete_overview_slideshow .delete_overview_slide');
+        var delete_overview_dots = $('#delete_overview_slideshow .delete_overview_dots');
+        var delete_overview_currentIndex = 0;
+
+        function delete_overview_showSlide(index) {
+            delete_overview_slides.removeClass('active');
+            delete_overview_slides.eq(index).addClass('active');
+
+            delete_overview_dots.find('.dot').removeClass('active');
+            delete_overview_dots.find('.dot').eq(index).addClass('active');
+        }
+
+        function delete_overview_createDots() {
+            delete_overview_slides.each(function(index) {
+                var dot = $('<span class="dot"></span>');
+                dot.click(function() {
+                    delete_overview_showSlide(index);
+                    delete_overview_currentIndex = index;
+                });
+                delete_overview_dots.append(dot);
+            });
+
+            delete_overview_dots.find('.dot').eq(0).addClass('active');
+        }
+
+        delete_overview_createDots();
+
+        window.delete_overview_nextSlide = function() {
+            delete_overview_currentIndex = (delete_overview_currentIndex + 1) % delete_overview_slides.length;
+            delete_overview_showSlide(delete_overview_currentIndex);
+        }
+
+        window.delete_overview_prevSlide = function() {
+            delete_overview_currentIndex = (delete_overview_currentIndex - 1 + delete_overview_slides.length) % delete_overview_slides.length;
+            delete_overview_showSlide(delete_overview_currentIndex);
+        }
+        var delete_project_slides = $('#delete_project_slideshow .delete_project_slide');
+        var delete_project_dots = $('#delete_project_slideshow .delete_project_dots');
+        var delete_project_currentIndex = 0;
+
+        function delete_project_showSlide(index) {
+            delete_project_slides.removeClass('active');
+            delete_project_slides.eq(index).addClass('active');
+
+            delete_project_dots.find('.dot').removeClass('active');
+            delete_project_dots.find('.dot').eq(index).addClass('active');
+        }
+
+        function delete_project_createDots() {
+            delete_project_slides.each(function(index) {
+                var dot = $('<span class="dot"></span>');
+                dot.click(function() {
+                    delete_project_showSlide(index);
+                    delete_project_currentIndex = index;
+                });
+                delete_project_dots.append(dot);
+            });
+
+            delete_project_dots.find('.dot').eq(0).addClass('active');
+        }
+
+        delete_project_createDots();
+
+        window.delete_project_nextSlide = function() {
+            delete_project_currentIndex = (delete_project_currentIndex + 1) % delete_project_slides.length;
+            delete_project_showSlide(delete_project_currentIndex);
+        }
+
+        window.delete_project_prevSlide = function() {
+            delete_project_currentIndex = (delete_project_currentIndex - 1 + delete_project_slides.length) % delete_project_slides.length;
+            delete_project_showSlide(delete_project_currentIndex);
+        }
+    });
+
+    function toggleSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.cms-section').forEach(function(section) {
+            section.style.display = 'none';
+        });
+
+        // Deactivate all navbar links
+        document.querySelectorAll('.nav-link').forEach(function(link) {
+            link.classList.remove('active');
+        });
+
+        // Show the selected section
+        document.getElementById(sectionId).style.display = 'flex';
+
+        // Activate the clicked navbar link
+        document.querySelector(`a[href="#${sectionId}"]`).classList.add('active');
+    }
+
+</script>
+</body>
+</html>

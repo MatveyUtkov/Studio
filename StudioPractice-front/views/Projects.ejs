@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link href="../dist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/css/universal.css">
+</head>
+
+<body>
+<div class="loader"></div>
+
+<main class="main-container">
+    <!-- NAVBAR MD,LG,XL -->
+    <div class="container navbar-cont text-center d-none d-sm-none d-md-block" id="header">
+        <header class="d-flex flex-wrap justify-content-center row">
+            <a href="/main" class="col-md-2 logo-a d-flex text-decoration-none align-items-center">
+                <span class="logo-text">AITU MEDIA <br> STUDIO</span>
+            </a>
+            <ul class="col-md-10 nav align-items-center">
+                <li class="col nav-item">
+                    <a class="nav-link active" href="/projects">ПРОЕКТЫ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/overview">СТУДИЯ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/about">О НАС</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/contacts">КОНТАКТЫ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link nav-apply" href="/booking" onclick="handleApply()">ЗАЯВКА</a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <!-- NAVBAR SM,XS -->
+    <div class="container align-items-center justify-content-center navbar-cont-mob d-flex d-sm-flex d-md-none">
+        <div class="row w-100">
+            <div class="col-sm-3 col-3 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <a href="/main" class="btn btn-lg w-100 nav-mob-slide-btn nav-mob-left">
+                        <span>ГЛАВНОЕ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-6">
+                <img src="../dist/media/medialogo_final6.svg" loading="lazy" class="image-fluid navbar-mob-img d-block mw-100 mh-100" alt="">
+            </div>
+            <div class="col-sm-3 col-3 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <a href="/overview" class="btn btn-lg w-100 nav-mob-slide-btn nav-mob-right">
+                        <span>СТУДИЯ</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid text-center" id="dynamic-slideshow">
+        <h1 class="mob-page-heading d-md-none d-sm-flex d-flex justify-content-center">
+            ПРОЕКТЫ
+        </h1>
+        <% if (!isMobile) { %>
+            <div class="row d-md-flex d-sm-none d-none">
+            <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                <div class="container-fluid">
+                    <button class="btn btn-lg w-100 slide-btn" onclick="prevDynamicSlide()">
+                        <span class="slide_btn_text"> < </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <% items.forEach(function(image, index) { %>
+                        <div class="container-fluid img-overview-cont position-relative slide <%= index === 0 ? 'active' : '' %>">
+                                <img class="img-project position-relative" loading="lazy" src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
+                                <div class="img-title position-absolute">
+                                    <i class="fa fa-youtube-play fa-sm"> <span class="p-img-name"><%= image.name %></span> </i>
+                                    <p class="p-img-desc"><%= image.desc %></p>
+                                </div>
+                                <div class="img-youtube position-absolute">
+                                    <iframe width="560" height="315" src="<%= image.url %>"
+                                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
+                                    clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+
+                                    </iframe>
+                                </div>
+                        </div>
+                <% }); %>
+            </div>
+
+            <div class="col-md-2 d-flex flex-wrap justify-content-center align-items-center">
+                <div class="container-fluid">
+                    <button class="btn btn-lg w-100 slide-btn" onclick="nextDynamicSlide()">
+                        <span class="slide_btn_text"> > </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <% } else { %>
+            <div class="row d-flex d-sm-flex d-md-none">
+                <div class="col-12">
+                    <% items.forEach(function(image, index) { %>
+                        <div class="container img-overview-cont slide <%= index === 0 ? 'active' : '' %>">
+                            <div class="container-fluid position-relative">
+                                <img class="img-project" loading="lazy" src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>"/>
+                                <div class="img-title position-absolute">
+                                    <i class="fa fa-youtube-play fa-sm"> </i>
+                                    <span class="p-img-name"><%= image.name %></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 col-2">
+                                    <button class="btn slide-btn" onclick="prevDynamicSlide()">
+                                        <span class="slide_btn_text"> < </span>
+                                    </button>
+                                </div>
+                                <div class="col-sm-8 col-8">
+                                    <p class="p-img-desc"><%= image.desc %></p>
+                                </div>
+                                <div class="col-sm-2 col-2 align-content-center">
+                                    <button class="btn slide-btn" onclick="nextDynamicSlide()">
+                                        <span class="slide_btn_text"> > </span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="img-youtube">
+                                <iframe class="youtube_embed" width="560" height="315" src="<%= image.url %>"
+                                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay;
+                                        clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
+
+        <div class="dynamic-dots"></div>
+
+        <div class="container-fluid d-flex d-sm-flex d-md-none">
+            <a href="/booking" class="btn btn-light btn-learn-request request-btn-mob my-3">
+                ОСТАВИТЬ ЗАЯВКУ
+            </a>
+        </div>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../dist/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://kit.fontawesome.com/21171dca9e.js" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        var dynamicSlides = $('#dynamic-slideshow .slide');
+        var dynamicDots = $('#dynamic-slideshow .dynamic-dots');
+        var dynamicCurrentIndex = 0;
+
+        function showDynamicSlide(index) {
+            dynamicSlides.removeClass('active');
+            dynamicSlides.eq(index).addClass('active');
+
+            dynamicDots.find('.dot').removeClass('active');
+            dynamicDots.find('.dot').eq(index).addClass('active');
+        }
+
+        function createDynamicDots() {
+            dynamicSlides.each(function(index) {
+                var dot = $('<span class="dot"></span>');
+                dot.click(function() {
+                    showDynamicSlide(index);
+                    dynamicCurrentIndex = index;
+                });
+                dynamicDots.append(dot);
+            });
+
+            dynamicDots.find('.dot').eq(0).addClass('active');
+        }
+
+        createDynamicDots();
+
+        window.nextDynamicSlide = function() {
+            dynamicCurrentIndex = (dynamicCurrentIndex + 1) % dynamicSlides.length;
+            showDynamicSlide(dynamicCurrentIndex);
+        }
+
+        window.prevDynamicSlide = function() {
+            dynamicCurrentIndex = (dynamicCurrentIndex - 1 + dynamicSlides.length) % dynamicSlides.length;
+            showDynamicSlide(dynamicCurrentIndex);
+        }
+        var deleteSlides = $('#delete-slideshow .slide');
+        var deleteDots = $('#delete-slideshow .dynamic-dots');
+        var deleteCurrentIndex = 0;
+
+        function showDeleteSlide(index) {
+            deleteSlides.removeClass('active');
+            deleteSlides.eq(index).addClass('active');
+
+            deleteDots.find('.dot').removeClass('active');
+            deleteDots.find('.dot').eq(index).addClass('active');
+        }
+
+        function createDeleteDots() {
+            deleteSlides.each(function(index) {
+                var dot = $('<span class="dot"></span>');
+                dot.click(function() {
+                    showDeleteSlide(index);
+                    deleteCurrentIndex = index;
+                });
+                deleteDots.append(dot);
+            });
+
+            deleteDots.find('.dot').eq(0).addClass('active');
+        }
+
+        createDeleteDots();
+
+        window.nextDeleteSlide = function() {
+            deleteCurrentIndex = (deleteCurrentIndex + 1) % deleteSlides.length;
+            showDeleteSlide(deleteCurrentIndex);
+        }
+
+        window.prevDeleteSlide = function() {
+            deleteCurrentIndex = (deleteCurrentIndex - 1 + deleteSlides.length) % deleteSlides.length;
+            showDeleteSlide(deleteCurrentIndex);
+        }
+    });
+
+
+</script>
+
+<script>
+    window.addEventListener("load", () =>{
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader-hidden");
+
+        loader.addEventListener("transitionend", () => {
+            document.body.removeChild("loader");
+        })
+    })
+</script>
+
+</body>
+</html>

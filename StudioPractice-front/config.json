@@ -1,0 +1,23 @@
+{
+  "credentials": {
+    "tenantName": "Media_Studio.onmicrosoft.com",
+    "clientID": "bae8f16c-d0e2-4d62-b9d6-b30f1bc2134a",
+    "issuer": "https://Media_Studio.b2clogin.com/158f15f3-83e0-4906-824c-69bdc50d9d61/v2.0/"
+  },
+  "policies": {
+    "policyName": "b2c_1_susi"
+  },
+  "resource": {
+    "scope": ["tasks.read"]
+  },
+  "metadata": {
+    "discovery": ".well-known/openid-configuration",
+    "version": "v2.0"
+  },
+  "settings": {
+    "isB2C": true,
+    "validateIssuer": true,
+    "passReqToCallback": false,
+    "loggingLevel": "info"
+  }
+}

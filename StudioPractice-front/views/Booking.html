@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Us</title>
+    <link href="../dist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/css/universal.css">
+    <script>
+        function checkMessageLength() {
+            var message = document.getElementById("message").value;
+            var email = document.getElementById("email").value;
+            if (message.length < 10) {
+                alert("Message must be at least 10 characters long.");
+                return false;
+            }
+            if (email.indexOf("@") === -1) {
+                alert("Email address must contain the '@' character.");
+                return false; // Prevent form submission
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+<div class="loader"></div>
+
+<main class="main-container">
+    <!-- NAVBAR MD,LG,XL -->
+    <div class="container navbar-cont text-center d-none d-sm-none d-md-block" id="header">
+        <header class="d-flex flex-wrap justify-content-center row">
+            <a href="/" class="col-md-2 logo-a d-flex text-decoration-none align-items-center">
+                <span class="logo-text">AITU MEDIA <br> STUDIO</span>
+            </a>
+            <ul class="col-md-10 nav align-items-center">
+                <li class="col nav-item">
+                    <a class="nav-link" href="/projects">ПРОЕКТЫ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/overview">СТУДИЯ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/about">О НАС</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/contacts">КОНТАКТЫ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link nav-apply active" href="/booking" onclick="handleApply()">ЗАЯВКА</a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <!-- NAVBAR SM,XS -->
+    <div class="container align-items-center justify-content-center navbar-cont-mob d-flex d-sm-flex d-md-none">
+        <div class="row w-100">
+            <div class="col-sm-3 col-3 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <a href="/contacts" class="btn btn-lg w-100 nav-mob-slide-btn nav-mob-left">
+                        <span>КОНТАКТЫ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-6">
+                <img src="../dist/media/medialogo_final6.svg" loading="lazy" class="image-fluid navbar-mob-img d-block mw-100 mh-100" alt="">
+            </div>
+            <div class="col-sm-3 col-3 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <a href="/main" class="btn btn-lg w-100 nav-mob-slide-btn nav-mob-right">
+                        <span>ГЛАВНОЕ</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid text-center booking-cont">
+        <div class="row h-100">
+            <div class="col-md-12 d-flex flex-wrap justify-content-center align-content-center">
+                <div class="container-fluid booking-text">
+                    <h1>заполните и отправьте форму чтобы мы могли с вами связаться</h1>
+                    <h4>ответ в течении 2 суток, только в рабочее время</h4>
+                </div>
+                <div class="container-fluid">
+                    <form class="book-form w-100" action="/send-message" method="post" onsubmit="return checkMessageLength()">
+                        <input class="form-control form-control-lg" type="email" id="email" placeholder="ВАШ EMAIL" name="email" required><br>
+                        <textarea class="form-control form-control-lg" id="message" placeholder="ОПИШИТЕ ВАШ ЗАКАЗ" name="message" required></textarea><br>
+
+                        <div class="row">
+                            <div class="col-md-1 col-sm-2 col-2 align-content-center">
+                                <input class="form-check-input" type="checkbox" value="something" required>
+                            </div>
+                            <div class="col-md-11 col-sm-10 col-10 text-start d-flex">
+                                <label class="form-check-label">Настоящим в соответсвии с Закон Республики Казахстан от 21 мая 2013 года № 94-V "О персональных данных и их защите" свободно, своей волей и в своем интересе выражаю свое безусловное согласие на обработку моих персональных данных Media Studio</label><br><br>
+                            </div>
+                        </div>
+
+
+                        <input class="btn btn-lg booking-btn" type="submit" value="ОТПРАВИТЬ">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="hero-bg-cont container-fluid">
+    <img src="../dist/media/home-bg.webp" loading="lazy" alt="" class="position-absolute object-fit-cover img-fluid hero-background" />
+</div>
+
+<script src="../dist/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    window.addEventListener("load", () =>{
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader-hidden");
+
+        loader.addEventListener("transitionend", () => {
+            document.body.removeChild("loader");
+        })
+    })
+</script>
+
+</body>
+</html>

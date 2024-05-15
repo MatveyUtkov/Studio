@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link href="../dist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/css/universal.css">
+</head>
+<body>
+<div class="loader"></div>
+
+<main class="main-container">
+    <!-- NAVBAR MD,LG,XL -->
+    <div class="container navbar-cont text-center d-none d-sm-none d-md-block" id="header">
+        <header class="d-flex flex-wrap justify-content-center row">
+            <a href="/" class="col-md-2 logo-a d-flex text-decoration-none align-items-center">
+                <span class="logo-text">AITU MEDIA <br> STUDIO</span>
+            </a>
+            <ul class="col-md-10 nav align-items-center">
+                <li class="col nav-item">
+                    <a class="nav-link" href="/projects">ПРОЕКТЫ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/overview">СТУДИЯ</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/about">О НАС</a>
+                </li>
+                <li class="col nav-item">
+                    <a class="nav-link" href="/contacts">КОНТАКТЫ</a>
+                </li>
+            </ul>
+        </header>
+    </div>
+
+    <!-- NAVBAR SM,XS -->
+    <div class="container align-items-center justify-content-center navbar-cont-mob d-flex d-sm-flex d-md-none">
+        <div class="row w-100">
+            <div class="col-sm-3 col-3 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <a href="/contacts" class="btn btn-lg w-100 nav-mob-slide-btn nav-mob-left">
+                        <span>КОНТАКТЫ</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-6">
+                <img src="../dist/media/medialogo_final6.svg" loading="lazy" class="image-fluid navbar-mob-img d-block mw-100 mh-100" alt="">
+            </div>
+            <div class="col-sm-3 col-3 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <a href="/projects" class="btn btn-lg w-100 nav-mob-slide-btn nav-mob-right">
+                        <span>ПРОЕКТЫ</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+            <div class="col-md-12">
+                <div class="row">
+                    <h1 class="hero-title d-none d-sm-none d-md-flex justify-content-center">media studio</h1>
+                    <h1 class="hero-title-mob htm_top d-flex d-sm-flex d-md-none justify-content-center">media</h1>
+                    <h1 class="hero-title-mob htm_bottom d-flex d-sm-flex d-md-none justify-content-center">studio</h1>
+                </div>
+                <div class="row hero-mid-row">
+                    <h2 class="hero-subtitle d-none d-sm-none d-md-flex justify-content-center">
+                        <span style="font-family: SF Pro, sans-serif; font-weight: 30;">#1</span>
+                        <span style="font-family: SF Pro, sans-serif; font-weight: 410;">В</span>
+                        <span style="font-family: SF Pro, sans-serif; font-weight: 410; color: rgba(242, 202, 92, 1);">казахстане</span>
+                    </h2>
+                    <h2 class="hero-subtitle-mob d-flex d-sm-flex d-md-none justify-content-center">
+                        <span class="hsm-top">#1</span>
+                        <span class="hsm-middle">В</span>
+                    </h2>
+                    <h2 class="hero-subtitle-mob hsm-bottom d-flex d-sm-flex d-md-none justify-content-center">казахстане</h2>
+                </div>
+
+                <div class="row hero-btm-row">
+                    <div class="main-btn col-md-6 col-sm-12 col-12 justify-content-center d-md-grid d-lg-grid d-xl-grid">
+                        <a href="/about" class="btn-learn-more btn btn-light align-content-center" onclick="handleLearnMore()">узнать больше</a>
+                    </div>
+                    <div class="main-btn col-md-6 col-sm-12 col-12 justify-content-center d-md-grid d-lg-grid d-xl-grid">
+                        <a href="/booking" class="btn-learn-request align-content-center btn btn-light" onclick="handleApply()">ЗАЯВКА</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
+<div class="hero-bg-cont container-fluid">
+    <img src="../dist/media/home-bg.webp" loading="lazy" alt="" class="position-absolute object-fit-cover img-fluid hero-background" />
+</div>
+<script src="../server.js"></script>
+<script>
+    function handleLearnMore() {
+        // Handle learn more button click
+        console.log('Learn more button clicked');
+    }
+
+    function handleApply() {
+        // Handle apply button click
+        console.log('Apply button clicked');
+    }
+</script>
+
+<script>
+    window.addEventListener("load", () =>{
+        const loader = document.querySelector(".loader");
+
+        loader.classList.add("loader-hidden");
+
+        loader.addEventListener("transitionend", () => {
+            document.body.removeChild("loader");
+        })
+    })
+</script>
+
+<script src="../dist/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
